@@ -8,6 +8,7 @@ GPIO.setmode(GPIO.BOARD)
 servo_pin = 12
 
 # establecer el pin GPIO como salida
+
 GPIO.setup(servo_pin, GPIO.OUT)
 
 # crear un objeto PWM para controlar el servo
