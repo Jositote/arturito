@@ -1,5 +1,3 @@
-import sys
-sys.path.append('/usr/local/lib/python3/dist-packages') 
 import freenect
 import cv2
 
@@ -38,7 +36,7 @@ class Detector:
 				
 		
 		
-hog = cv2.HOGDescriptor()
+"""hog = cv2.HOGDescriptor()
 hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 
 detect = Detector(hog)		
@@ -58,4 +56,4 @@ while True:
 		break
 
 cv2.destroyAllWindows
-freenect.sync_stop()
+freenect.sync_stop()"""
