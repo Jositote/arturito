@@ -29,12 +29,16 @@ def start_detect():
 			image = detect.detect_people(image, depth_data)
 			print("people")
 			center, depth = detect.detect_depth()
-		
-			if len(center) > 0:
+			print(depth)
+			if len(center) > 0 and depth > 0:
 				print(f"moving {center[0]}")
-				
-				servo.start(center[0],0)
-			cv2.imshow('Video',image)
+
+				servo.start(center[0],50)
+			else:
+				servo.set_velocity(0)
+			cv2.imshow('Kinect',image)
+			if cv2.waitKey(1) & 0xFF == ord('q'):
+				break
 	finally:
 		servo.stop()
 		cv2.destroyAllWindows
@@ -57,6 +61,7 @@ with sr.Microphone() as source:
 			text = r.recognize_google(audio, language='es-ES')
 			print(f"Has dicho: {text}")
 			if(text=="seguir"):
+				cv2.namedWindow('Kinect', cv2.WINDOW_NORMAL)
 				p = Process(target = start_detect)
 				detectado = True
 			elif text == "canta":
@@ -68,7 +73,7 @@ with sr.Microphone() as source:
 			if detectado:
 				try:
 					p.start()
-					time.sleep(10.0)
+					time.sleep(100.0)
 				finally:
 					p.terminate()
 		except sr.UnknownValueError:

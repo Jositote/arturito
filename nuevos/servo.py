@@ -62,6 +62,7 @@ class Servocar:
 	def random_move(self):		
 		while True:
 			self.set_turn(random.randint(-100,100))
+			time.sleep(0.5)
 			
 	def stop(self):
 		self.pwservo.stop()
