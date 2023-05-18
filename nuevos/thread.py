@@ -55,6 +55,7 @@ r = sr.Recognizer()
 with sr.Microphone() as source:
 	r.adjust_for_ambient_noise(source)
 	while True:
+		totalTime = 0
 		detectado = False
 		audio = r.listen(source)
 		try:
@@ -64,16 +65,19 @@ with sr.Microphone() as source:
 				cv2.namedWindow('Kinect', cv2.WINDOW_NORMAL)
 				p = Process(target = start_detect)
 				detectado = True
+				totalTime = 100
 			elif text == "canta":
 				p = Process(target = buzzer)
 				detectado = True
+				totalTime = 5
 			elif text == "baila":
 				p = Process(target = rand_move)
 				detectado = True
+				totalTime = 10
 			if detectado:
 				try:
 					p.start()
-					time.sleep(100.0)
+					time.sleep(totalTime)
 				finally:
 					p.terminate()
 		except sr.UnknownValueError:
