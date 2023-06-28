@@ -4,10 +4,9 @@ import random
 
 class Servocar:
 	def __init__(self):
-		GPIO.setmode(GPIO.BOARD)
-
-		self.servo_pin=12
-		self.motor_pin=11
+		GPIO.setmode(GPIO.BCM)
+		self.servo_pin=18
+		self.motor_pin=17
 
 		GPIO.setup(self.servo_pin,GPIO.OUT)
 		GPIO.setup(self.motor_pin,GPIO.OUT)
@@ -67,5 +66,4 @@ class Servocar:
 	def stop(self):
 		self.pwservo.stop()
 		self.pwmotor.stop()
-		GPIO.cleanup()
 	

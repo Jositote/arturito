@@ -1,3 +1,5 @@
+import sys
+sys.path.append('/home/arturito/.local/lib/python3.9/site-packages')
 import freenect
 import cv2
 
