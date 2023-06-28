@@ -7,15 +7,17 @@ class Servocar:
 		GPIO.setmode(GPIO.BCM)
 		self.servo_pin=18
 		self.motor_pin=17
+		self.angle = 0
+		self.ratio = (12.5 - 4)/180 
 
 		GPIO.setup(self.servo_pin,GPIO.OUT)
 		GPIO.setup(self.motor_pin,GPIO.OUT)
 
 		self.pwservo = GPIO.PWM(self.servo_pin,50)
-		self.pwmotor = GPIO.PWM(self.motor_pin,100)
+		self.pwmotor = GPIO.PWM(self.motor_pin,50)
 
 		self.pwservo.start(0)
-		self.pwmotor.start(0)
+		self.pwmotor.start(4)
 
 	def get_turn(self, x):
 		if x == 0:
@@ -26,18 +28,10 @@ class Servocar:
 		return porcentaje
 
 	def set_velocity(self, x):
-		if(x<=0):
-			vel=0
-		elif(x>100):
-			vel=100
-		else:
-			##Calculamos la velocidad según una regla de tres.
-			#Sabemos que nuestros valores oscilan entre 14 y 22
-			#Aplicando una regla de tres nos queda la siguiente formula
-			vel= ((7.25*x)/100)+14.75
-		
-		self.pwmotor.ChangeDutyCycle(vel)	
-		print("Velocidad "+str(vel))
+		if(x>0):		
+			vel = self.angle_to_percent()
+			self.pwmotor.ChangeDutyCycle(vel)	
+			print("Velocidad "+str(vel))
 		
 	def set_turn(self, x):
 		if(x<-100):
@@ -67,3 +61,12 @@ class Servocar:
 		self.pwservo.stop()
 		self.pwmotor.stop()
 	
+	def angle_to_percent(self) :
+		if self.angle < 180:
+			self.angle += 90 
+		else:
+			self.angle -= 90
+
+		angle_as_percent = self.angle * self.ratio
+
+		return 4 + angle_as_percent

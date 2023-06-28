@@ -14,13 +14,14 @@ from LED import power_led
 
 def start_detect():
 	try:
+		
 		hog = cv2.HOGDescriptor()
 		hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 
 		detect = Detector(hog)		
 		servo = Servocar()
 		while True:
-			image , _ = freenect.sync_get_video()
+			image, _ = freenect.sync_get_video()
 			print("image")
 			image = cv2.cvtColor(image,cv2.COLOR_RGB2BGR)
 			depth_data, _ = freenect.sync_get_depth()
@@ -85,6 +86,9 @@ with sr.Microphone() as source:
 						finish_sound()
 						p.terminate()
 						
+						cv2.destroyAllWindows
+						freenect.sync_stop()
+						
 			except sr.UnknownValueError:
 				power_led()
 				error_sound()
@@ -94,7 +98,13 @@ with sr.Microphone() as source:
 		print ("finish")
 		finish_sound()
 		GPIO.cleanup()
+		
+		cv2.destroyAllWindows
+		freenect.sync_stop()
 	finally:		
 		print ("finish")
 		finish_sound()
 		GPIO.cleanup()
+		
+		cv2.destroyAllWindows
+		freenect.sync_stop()
