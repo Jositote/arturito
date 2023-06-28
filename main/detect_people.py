@@ -1,6 +1,5 @@
 import sys
 sys.path.append('/home/arturito/.local/lib/python3.9/site-packages')
-import freenect
 import cv2
 
 class Detector:
@@ -34,28 +33,3 @@ class Detector:
 		
 		self.centers = []
 		return minCenters, minDistance
-		
-				
-		
-		
-"""hog = cv2.HOGDescriptor()
-hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
-
-detect = Detector(hog)		
-		
-while True:
-	image , _ = freenect.sync_get_video()
-	image = cv2.cvtColor(image,cv2.COLOR_RGB2BGR)
-	depth_data, _ = freenect.sync_get_depth()
-	image = detect.detect_people(image, depth_data)
-	center, depth = detect.detect_depth()
-	
-	if len(center) > 0:
-		print(center, depth)
-	
-	cv2.imshow('Video',image)
-	if cv2.waitKey(1) & 0xFF == ord('q'):
-		break
-
-cv2.destroyAllWindows
-freenect.sync_stop()"""

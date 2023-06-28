@@ -4,7 +4,6 @@ from multiprocessing import Process
 from detect_people import Detector
 from servo import Servocar
 import time
-import sys
 import cv2
 import freenect
 import RPi.GPIO as GPIO
@@ -14,7 +13,6 @@ from LED import power_led
 
 def start_detect():
 	try:
-		
 		hog = cv2.HOGDescriptor()
 		hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 
@@ -85,7 +83,6 @@ with sr.Microphone() as source:
 					finally:
 						finish_sound()
 						p.terminate()
-						
 						cv2.destroyAllWindows
 						freenect.sync_stop()
 						
